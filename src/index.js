@@ -14,6 +14,7 @@ import axios from 'axios';
 // sagas waiting for dispatch
 function* rootSaga() {
   yield takeEvery('GET_PLANTS', getPlants);
+  yield takeEvery('ADD_PLANT', addPlant);
 }
 
 function* getPlants() {
@@ -25,6 +26,18 @@ function* getPlants() {
     });
   } catch (err) {
     console.log(`Yikes, didn't get that. ${err}`);
+  }
+}
+
+function* addPlant(action) {
+  try {
+    console.log(action.payload);
+    yield axios.post('/api/plant', action.payload);
+    yield put({
+      type: 'GET_PLANTS',
+    });
+  } catch (err) {
+    console.log(err);
   }
 }
 
