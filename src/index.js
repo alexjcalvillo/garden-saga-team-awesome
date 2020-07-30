@@ -4,8 +4,7 @@ import App from './App';
 
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
-import { takeEvery, takeLatest, put } from 'redux-saga/effects';
-
+import { takeEvery, put } from 'redux-saga/effects';
 // IMPORT MIDDLEWARE
 import logger from 'redux-logger';
 import createSagaMiddleware from 'redux-saga';
@@ -16,6 +15,7 @@ function* rootSaga() {
   yield takeEvery('GET_PLANTS', getPlants);
   yield takeEvery('ADD_PLANT', addPlant);
   yield takeEvery('DELETE_PLANT', deletePlant);
+  yield takeEvery('GET_PLANT_DETAILS', getPlantDetails);
 }
 
 function* getPlants() {
@@ -52,6 +52,19 @@ function* deletePlant(action) {
     console.log(err);
   }
 }
+function* getPlantDetails(action) {
+  try {
+    console.log('action.payload: ', action.payload);
+    const response = yield axios.get(`/api/plant/details/${action.payload}`);
+    yield put({
+      type: 'SET_PLANT_DETAILS',
+      payload: response.data,
+    });
+    console.log('response.data: ', response.data);
+  } catch (err) {
+    console.log(err);
+  }
+}
 
 // SETUP saga/ADD saga
 const sagaMiddleware = createSagaMiddleware();
@@ -72,8 +85,17 @@ const plantList = (state = [], action) => {
   }
 };
 
+const plantDetails = (state = {}, action) => {
+  switch (action.type) {
+    case 'SET_PLANT_DETAILS':
+      return { ...action.payload };
+    default:
+      return state;
+  }
+};
+
 const store = createStore(
-  combineReducers({ plantList }),
+  combineReducers({ plantList, plantDetails }),
   applyMiddleware(logger, sagaMiddleware)
 );
 
