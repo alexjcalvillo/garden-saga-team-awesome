@@ -13,9 +13,12 @@ class PlantList extends Component {
       type: 'GET_PLANTS',
     });
   }
-
+  deletePlant = (index) => (event) => {
+    console.log('plant id', index);
+  };
   render() {
     console.log(this.props.plantList);
+
     return (
       <div>
         <h3>This is the plant list</h3>
@@ -43,7 +46,9 @@ class PlantList extends Component {
                   <td>{item.family}</td>
                   <td>{item.subfamily}</td>
                   <td>{item.genus}</td>
-                  <td></td>
+                  <td>
+                    <button onClick={this.deletePlant(index)}>X</button>
+                  </td>
                 </tr>
               );
             })}
