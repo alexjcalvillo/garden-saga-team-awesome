@@ -12,10 +12,12 @@ class SinglePlant extends Component {
 
   componentDidMount() {
     // use component did mount to dispatch an action to request the plantList from the API
+    this.props.history.push(`/${this.props.match.params.id}`);
     this.props.dispatch({
       type: 'GET_PLANT_DETAILS',
       payload: this.props.match.params.id,
     });
+    this.props.history.push(`/${this.props.match.params.id}`);
   }
 
   render() {

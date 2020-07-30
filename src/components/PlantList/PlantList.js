@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './PlantList.css';
 import { connect } from 'react-redux';
-
+import { Link } from 'react-router-dom';
 const mapStateToProps = (store) => ({
   plantList: store.plantList,
 });
@@ -44,7 +44,9 @@ class PlantList extends Component {
             {this.props.plantList.map((item, index) => {
               return (
                 <tr key={item.id}>
-                  <td>{item.name}</td>
+                  <td>
+                    <Link to={`/${item.id}`}>{item.name}</Link>
+                  </td>
                   <td>{item.kingdom}</td>
                   <td>{item.clade}</td>
                   <td>{item.order}</td>

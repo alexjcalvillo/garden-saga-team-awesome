@@ -11,9 +11,9 @@ const App = () => (
       <header className="App-header">
         <h1>Welcome to your garden!</h1>
       </header>
-      <Switch>
-        <Route exact path="/:id" component={SinglePlant} />
-      </Switch>
+
+      <Route exact path="/:id" render={(props) => <SinglePlant {...props} />} />
+
       <Route exact path="/" component={Garden} />
     </div>
   </Router>

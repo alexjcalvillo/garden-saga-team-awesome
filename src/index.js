@@ -16,6 +16,7 @@ function* rootSaga() {
   yield takeEvery('ADD_PLANT', addPlant);
   yield takeEvery('DELETE_PLANT', deletePlant);
   yield takeEvery('GET_PLANT_DETAILS', getPlantDetails);
+  yield takeEvery('REFRESH_PAGE', getPlants);
 }
 
 function* getPlants() {
@@ -29,6 +30,12 @@ function* getPlants() {
     console.log(`Yikes, didn't get that. ${err}`);
   }
 }
+
+// function* refreshPage(action) {
+//   yield put({
+//     type
+//   })
+// }
 
 function* addPlant(action) {
   try {
