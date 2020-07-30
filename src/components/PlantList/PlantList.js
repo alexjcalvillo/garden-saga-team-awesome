@@ -13,8 +13,13 @@ class PlantList extends Component {
       type: 'GET_PLANTS',
     });
   }
-  deletePlant = (index) => (event) => {
-    console.log('plant id', index);
+  deletePlant = (id) => (event) => {
+    // console.log('plant id', index);
+    //dispatch out to saga
+    this.props.dispatch({
+      type: 'DELETE_PLANT',
+      payload: id,
+    });
   };
   render() {
     console.log(this.props.plantList);
@@ -47,7 +52,7 @@ class PlantList extends Component {
                   <td>{item.subfamily}</td>
                   <td>{item.genus}</td>
                   <td>
-                    <button onClick={this.deletePlant(index)}>X</button>
+                    <button onClick={this.deletePlant(item.id)}>X</button>
                   </td>
                 </tr>
               );

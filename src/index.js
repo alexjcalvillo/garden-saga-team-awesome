@@ -15,6 +15,7 @@ import axios from 'axios';
 function* rootSaga() {
   yield takeEvery('GET_PLANTS', getPlants);
   yield takeEvery('ADD_PLANT', addPlant);
+  yield takeEvery('DELETE_PLANT', deletePlant);
 }
 
 function* getPlants() {
@@ -33,6 +34,17 @@ function* addPlant(action) {
   try {
     console.log(action.payload);
     yield axios.post('/api/plant', action.payload);
+    yield put({
+      type: 'GET_PLANTS',
+    });
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+function* deletePlant(action) {
+  try {
+    yield axios.delete(`/api/plant/${action.payload}`);
     yield put({
       type: 'GET_PLANTS',
     });
