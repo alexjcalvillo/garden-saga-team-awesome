@@ -7,14 +7,14 @@ const mapStateToProps = (store) => ({
 
 class SinglePlant extends Component {
   state = {
-    id: 1,
+    id: '',
   };
 
   componentDidMount() {
     // use component did mount to dispatch an action to request the plantList from the API
     this.props.dispatch({
       type: 'GET_PLANT_DETAILS',
-      payload: this.state.id,
+      payload: this.props.match.params.id,
     });
   }
 
@@ -38,22 +38,15 @@ class SinglePlant extends Component {
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr key={this.props.plantDetails.id}>
               <td>{this.props.plantDetails.name}</td>
+              <td>{this.props.plantDetails.kingdom}</td>
+              <td>{this.props.plantDetails.clade}</td>
+              <td>{this.props.plantDetails.order}</td>
+              <td>{this.props.plantDetails.family}</td>
+              <td>{this.props.plantDetails.subfamily}</td>
+              <td>{this.props.plantDetails.genus}</td>
             </tr>
-            {/* {this.props.plantDetails.map((item, index) => {
-              return (
-                <tr key={item.id}>
-                  <td>{item.name}</td>
-                  <td>{item.kingdom}</td>
-                  <td>{item.clade}</td>
-                  <td>{item.order}</td>
-                  <td>{item.family}</td>
-                  <td>{item.subfamily}</td>
-                  <td>{item.genus}</td>
-                </tr>
-              );
-            })} */}
           </tbody>
         </table>
       </div>

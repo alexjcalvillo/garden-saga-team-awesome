@@ -58,8 +58,9 @@ function* getPlantDetails(action) {
     const response = yield axios.get(`/api/plant/details/${action.payload}`);
     yield put({
       type: 'SET_PLANT_DETAILS',
-      payload: response.data,
+      payload: response.data[0],
     });
+
     console.log('response.data: ', response.data);
   } catch (err) {
     console.log(err);
@@ -88,7 +89,7 @@ const plantList = (state = [], action) => {
 const plantDetails = (state = {}, action) => {
   switch (action.type) {
     case 'SET_PLANT_DETAILS':
-      return { ...action.payload };
+      return action.payload;
     default:
       return state;
   }

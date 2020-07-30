@@ -14,7 +14,7 @@ const App = () => (
       <Switch>
         <Route exact path="/:id" component={SinglePlant} />
       </Switch>
-      <Garden />
+      <Route exact path="/" component={Garden} />
     </div>
   </Router>
 );
