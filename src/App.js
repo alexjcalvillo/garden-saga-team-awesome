@@ -1,6 +1,6 @@
 import React from 'react';
 import Garden from './components/Garden/Garden';
-import { HashRouter as Router, Route, Switch } from 'react-router-dom';
+import { HashRouter as Router, Route } from 'react-router-dom';
 
 import './App.css';
 import SinglePlant from './components/SinglePlant/SinglePlant';
@@ -12,7 +12,7 @@ const App = () => (
         <h1>Welcome to your garden!</h1>
       </header>
 
-      <Route exact path="/:id" render={(props) => <SinglePlant {...props} />} />
+      <Route path="/plant/:id" render={(props) => <SinglePlant {...props} />} />
 
       <Route exact path="/" component={Garden} />
     </div>

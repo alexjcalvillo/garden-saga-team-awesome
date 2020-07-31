@@ -74,6 +74,18 @@ function* getPlantDetails(action) {
   }
 }
 
+function* editPlantDetails(action) {
+  try {
+    yield axios.put(`/api/plant/details/${action.payload}`);
+    yield put({
+      type: '',
+      payload: '',
+    });
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 // SETUP saga/ADD saga
 const sagaMiddleware = createSagaMiddleware();
 

@@ -2,6 +2,16 @@ import React, { Component } from 'react';
 import './PlantList.css';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
+
 const mapStateToProps = (store) => ({
   plantList: store.plantList,
 });
@@ -28,39 +38,47 @@ class PlantList extends Component {
       <div>
         <h3>This is the plant list</h3>
         <pre>{JSON.stringify(this.props.reduxState)}</pre>
-        <table className="list">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Kingdom</th>
-              <th>Clade</th>
-              <th>Order</th>
-              <th>Family</th>
-              <th>Sub-Family</th>
-              <th>Genus</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.props.plantList.map((item, index) => {
-              return (
-                <tr key={item.id}>
-                  <td>
-                    <Link to={`/${item.id}`}>{item.name}</Link>
-                  </td>
-                  <td>{item.kingdom}</td>
-                  <td>{item.clade}</td>
-                  <td>{item.order}</td>
-                  <td>{item.family}</td>
-                  <td>{item.subfamily}</td>
-                  <td>{item.genus}</td>
-                  <td>
-                    <button onClick={this.deletePlant(item.id)}>X</button>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+        <TableContainer component={Paper}>
+          <Table className="list">
+            <TableHead>
+              <TableRow>
+                <TableCell>Name</TableCell>
+                <TableCell align="right">Kingdom</TableCell>
+                <TableCell align="right">Clade</TableCell>
+                <TableCell align="right">Order</TableCell>
+                <TableCell align="right">Family</TableCell>
+                <TableCell align="right">Sub-Family</TableCell>
+                <TableCell align="right">Genus</TableCell>
+                <TableCell></TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {this.props.plantList.map((item, index) => {
+                return (
+                  <TableRow key={item.id}>
+                    <TableCell>
+                      <Link to={`/plant/${item.id}`}>{item.name}</Link>
+                    </TableCell>
+                    <TableCell>{item.kingdom}</TableCell>
+                    <TableCell>{item.clade}</TableCell>
+                    <TableCell>{item.order}</TableCell>
+                    <TableCell>{item.family}</TableCell>
+                    <TableCell>{item.subfamily}</TableCell>
+                    <TableCell>{item.genus}</TableCell>
+                    <TableCell>
+                      <Button
+                        variant="contained"
+                        onClick={this.deletePlant(item.id)}
+                      >
+                        X
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
+            </TableBody>
+          </Table>
+        </TableContainer>
       </div>
     );
   }
